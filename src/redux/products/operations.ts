@@ -184,6 +184,7 @@ export const orderProduct = (
   ) => {
     const uid = getState().users.uid;
     const timestamp = firebaseTimestamp.now();
+    const paymentId = localStorage.getItem("stripePaymentId") || "";
 
     const products: {
       id: string;
@@ -245,7 +246,7 @@ export const orderProduct = (
         const orderRef = doc(collection(db, "users", uid, "orders"));
         const date = timestamp.toDate();
         const shippingDate = firebaseTimestamp.fromDate(
-          new Date(date.setDate(date.getDate() + 3))
+          new Date(new Date(date).setDate(new Date(date).getDate() + 3))
         );
 
         const history = {
@@ -255,9 +256,13 @@ export const orderProduct = (
           products: products,
           shipping_date: shippingDate,
           updated_at: timestamp,
+          payment_id: paymentId
         };
 
         await setDoc(orderRef, history);
+
+        // 注文IDをローカルストレージに保存
+        localStorage.setItem("orderId", orderRef.id);
 
         // 注文処理が成功したら、カートの商品を削除
         for (const product of productsInCart) {

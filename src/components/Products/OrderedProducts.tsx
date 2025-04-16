@@ -38,8 +38,8 @@ const OrderedProducts = (props: { products: CartProduct[] }) => {
 
   return (
     <List>
-      {props.products.map((product) => (
-        <ListItem className={classes.list} key={product.id}>
+      {props.products.map((product, index) => (
+        <ListItem className={classes.list} key={`${product.id}-${index}`}>
           <ListItemAvatar>
             <img
               className={classes.image}

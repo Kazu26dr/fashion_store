@@ -59,7 +59,7 @@ type BillingDetails = {
 };
 
 type Props = {
-  onSuccess: () => void;
+  onSuccess: (paymentIntentId?: string) => void;
   billingDetails?: BillingDetails;
 };
 
@@ -78,7 +78,7 @@ const CheckoutForm = ({ onSuccess, billingDetails }: Props) => {
     setIsProcessing(true);
 
     try {
-      const { error } = await stripe.confirmPayment({
+      const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: `${window.location.origin}/order/complete`,
@@ -93,7 +93,13 @@ const CheckoutForm = ({ onSuccess, billingDetails }: Props) => {
         console.error('[error]', error);
         alert(error.message);
       } else {
-        onSuccess();
+        if (paymentIntent && paymentIntent.id) {
+          // PaymentIntentIDをローカルストレージに保存
+          localStorage.setItem("stripePaymentId", paymentIntent.id);
+          onSuccess(paymentIntent.id);
+        } else {
+          onSuccess();
+        }
       }
     } catch (error) {
       console.error('[error]', error);
@@ -127,4 +133,4 @@ const CheckoutForm = ({ onSuccess, billingDetails }: Props) => {
   );
 };
 
-export default CheckoutForm; 
+export default CheckoutForm;

@@ -29,6 +29,9 @@ const OrderHistoryItem = (props: OrderData) => {
         <div>
             <div className="module-spacer--small" />
             <TextDetail label="注文ID" value={props.id} />
+            {props.payment_id && (
+                <TextDetail label="支払いID" value={props.payment_id} />
+            )}
             <TextDetail label="注文日時" value={orderedDatetime} />
             <TextDetail label="発送予定日" value={shippingDate} />
             <TextDetail label="注文金額" value={price} />

@@ -380,7 +380,8 @@ export const fetchOrdersHistory = (): ThunkAction<
           updated_at: {
             seconds: data.updated_at.seconds,
             nanoseconds: data.updated_at.nanoseconds
-          }
+          },
+          payment_id: data.payment_id
         };
         list.push(order);
       });

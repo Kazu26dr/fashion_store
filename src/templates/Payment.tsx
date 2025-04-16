@@ -1,7 +1,6 @@
 import { Box, CircularProgress, TextField, Typography, styled, Divider, FormControlLabel, Checkbox } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store/store";
-import { getProductsInCart } from "../redux/users/selectors";
 import { CheckoutForm } from "../components/Products";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -39,8 +38,7 @@ const PaymentForm = styled('div')({
 });
 
 const Payment = () => {
-  const selector = useSelector((state: RootState) => state);
-  const productsInCart = getProductsInCart(selector);
+  const productsInCart = useSelector((state: RootState) => state.users.cart);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
@@ -86,7 +84,10 @@ const Payment = () => {
     createPayment();
   }, [total, functions, navigate]);
 
-  const handleSuccess = useCallback(() => {
+  const handleSuccess = useCallback((paymentIntentId?: string) => {
+    if (paymentIntentId) {
+      localStorage.setItem("stripePaymentId", paymentIntentId);
+    }
     dispatch(orderProduct(productsInCart, total));
     navigate("/order/complete");
   }, [dispatch, productsInCart, total, navigate]);

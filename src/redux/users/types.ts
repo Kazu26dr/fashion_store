@@ -75,6 +75,7 @@ export interface OrderData {
     price: number;
     size: string;
   }[];
+  payment_id?: string; // Stripe Payment ID
 }
 
 export interface FetchOrdersHistoryAction {

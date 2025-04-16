@@ -1,7 +1,6 @@
 import { Box, Divider, List, Typography, styled, CircularProgress, Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store/store";
-import { getProductsInCart } from "../redux/users/selectors";
 import { CartListItem } from "../components/Products";
 import { PrimaryButton, TextDetail } from "../components/UIkit";
 import { useCallback, useMemo, useState } from "react";
@@ -37,8 +36,7 @@ const EmptyCartBox = styled(Box)({
 });
 
 const OrderComfirm = () => {
-  const selector = useSelector((state: RootState) => state);
-  const productsInCart = getProductsInCart(selector);
+  const productsInCart = useSelector((state: RootState) => state.users.cart);
   const navigate = useNavigate();
   const [isOrdering, setIsOrdering] = useState(false);
 
