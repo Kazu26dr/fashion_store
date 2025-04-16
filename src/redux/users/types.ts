@@ -75,7 +75,11 @@ export interface OrderData {
     price: number;
     size: string;
   }[];
-  payment_id?: string; // Stripe Payment ID
+  payment_id?: string;
+  shipping_date?: {
+    seconds: number;
+    nanoseconds: number;
+  };
 }
 
 export interface FetchOrdersHistoryAction {

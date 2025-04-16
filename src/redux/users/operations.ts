@@ -381,7 +381,11 @@ export const fetchOrdersHistory = (): ThunkAction<
             seconds: data.updated_at.seconds,
             nanoseconds: data.updated_at.nanoseconds
           },
-          payment_id: data.payment_id
+          payment_id: data.payment_id,
+          shipping_date: data.shipping_date ? {
+            seconds: data.shipping_date.seconds,
+            nanoseconds: data.shipping_date.nanoseconds
+          } : undefined
         };
         list.push(order);
       });

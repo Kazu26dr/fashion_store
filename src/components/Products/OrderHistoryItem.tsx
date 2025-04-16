@@ -22,7 +22,7 @@ const dateToString = (timestamp: { seconds: number; nanoseconds: number }) => {
 
 const OrderHistoryItem = (props: OrderData) => {
     const orderedDatetime = datetimeToString(props.updated_at);
-    const shippingDate = dateToString(props.created_at);
+    const shippingDate = props.shipping_date ? dateToString(props.shipping_date) : dateToString(props.created_at);
     const price = "￥" + props.amount.toLocaleString();
 
     return (
