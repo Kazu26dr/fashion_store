@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "moduleResolution": "node16",
+    "module": "Node16",
+    "skipLibCheck": true,
+    "lib": ["ES2020", "DOM"]
+  }
+}
