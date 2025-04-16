@@ -146,8 +146,9 @@
   width: 100%;
   height: auto;
 }
+
 .p-profile {
-  &__container {
+  :is(.p-profile__container) {
     max-width: 600px;
     margin: 0 auto;
     padding: 2rem;
@@ -156,13 +157,13 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  &__info {
+  :is(.p-profile__info) {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  &__item {
+  :is(.p-profile__item) {
     h3 {
       font-size: 1rem;
       color: #666;
@@ -175,13 +176,13 @@
     }
   }
 
-  &__edit-form {
+  :is(.p-profile__edit-form) {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  &__form-group {
+  :is(.p-profile__form-group) {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -204,7 +205,7 @@
     }
   }
 
-  &__button-group {
+  :is(.p-profile__button-group) {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
@@ -242,7 +243,7 @@
   cursor: pointer;
   transition: background-color 0.2s;
 
-  &--primary {
+  :is(.c-button__primary) {
     background-color: #007bff;
     color: white;
 
@@ -251,7 +252,7 @@
     }
   }
 
-  &--secondary {
+  :is(.c-button__secondary) {
     background-color: #6c757d;
     color: white;
 

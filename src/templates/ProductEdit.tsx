@@ -99,7 +99,7 @@ const ProductEdit = () => {
   }, []);
   return (
     <section className="c-section-container">
-      <h2 className="u-text__headline u-text__center">商品の登録・編集</h2>
+      <h2 className="u-text__headline center">商品の登録・編集</h2>
 
       <div className="c-edit-container">
         <ImageArea
