@@ -34,7 +34,7 @@ const SignIn = () => {
 
 
   return (
-    <div className="c-section-container">
+    <div className="c-section-signin-container">
       <h2 className="u-text__headline u-text__center">Sign In</h2>
       <div className="c-container">
         <TextInput
@@ -46,6 +46,7 @@ const SignIn = () => {
           value={email}
           type={"email"}
           onChange={onChangeEmail}
+          autoComplete="email"
         />
         <TextInput
           fullWidth={true}
@@ -60,15 +61,7 @@ const SignIn = () => {
         <p style={{ color: "red" }}>
           {error}
         </p>
-        <p>
-          <Link
-            className="u-text__link-none u-text__link-black"
-            to="/signin/reset"
-          >
-            パスワードを忘れた方はこちら
-          </Link>
-        </p>
-        <div className="module-spacer--medium" />
+        <div className="module-spacer--extra-small" />
         <div className="center">
           <PrimaryButton
             label={"Sign in"}
@@ -76,12 +69,20 @@ const SignIn = () => {
           />
         </div>
         <br />
-        <div>
+        <div className="center">
           <p>
             <Link className="u-text__link-none u-text__link-black" to="/signup">
-              アカウントをお持ちでない方はこちら
+              新規登録はこちら
             </Link>
           </p>
+          <p>
+          <Link
+            className="u-text__link-none u-text__link-black"
+            to="/signin/reset"
+          >
+            パスワードを忘れた方はこちら
+          </Link>
+        </p>
         </div>
       </div>
     </div>

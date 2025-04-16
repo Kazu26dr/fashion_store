@@ -25,9 +25,10 @@ const Reset = () => {
   const error = useSelector((state: RootState) => state.users.error);
 
   return (
-    <div className="c-section-container">
+    <div className="c-section-signin-container">
       <h2 className="u-text__headline u-text__center">Password Reset</h2>
       <div className="c-container">
+      <div className="module-spacer--extra-small" />
         <TextInput
           fullWidth={true}
           label={"メールアドレス"}
@@ -37,19 +38,20 @@ const Reset = () => {
           value={email}
           type={"email"}
           onChange={onChangeEmail}
+          autoComplete="email"
         />
         <p style={{ color: "red" }}>
           {error}
         </p>
-        <div className="module-spacer--medium" />
+        <div className="module-spacer--extra-small" />
         <div className="center">
           <PrimaryButton
             label={"Reset Password"}
             onClick={() => dispatch(resetPassword({ email, navigate }))}
           />
         </div>
-        <div className="module-spacer--medium" />
-        <div>
+        <div className="module-spacer--extra-small" />
+        <div className="center">
           <Link className="u-text__link-none u-text__link-black" to="/signin">
             サインインに戻る
           </Link>

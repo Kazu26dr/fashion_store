@@ -37,6 +37,14 @@
   width: 100%;
 }
 
+.c-section-signin-container {
+  margin: 0 auto;
+  max-width: 575px;
+  padding: 1rem;
+  height: auto;
+  width: calc(100% - 2rem);
+}
+
 .c-section-container {
   margin: 0 auto;
   max-width: 1024px;

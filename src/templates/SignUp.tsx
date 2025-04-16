@@ -49,7 +49,7 @@ const SignUp = () => {
   const error = useSelector((state: RootState) => state.users.error);
 
   return (
-    <div className="c-section-container">
+    <div className="c-section-signin-container">
       <h2 className="u-text__headline u-text__center">Sign Up</h2>
       <div className="c-container">
         <TextInput
@@ -61,6 +61,7 @@ const SignUp = () => {
           value={name}
           type={"text"}
           onChange={onChangeName}
+          autoComplete="username"
         />
         <TextInput
           fullWidth={true}
@@ -71,6 +72,7 @@ const SignUp = () => {
           value={email}
           type={"email"}
           onChange={onChangeEmail}
+          autoComplete="email"
         />
         <TextInput
           fullWidth={true}
@@ -113,7 +115,7 @@ const SignUp = () => {
           />
         </div>
         <div className="module-spacer--medium" />
-        <div>
+        <div className="center">
           <Link
             className="u-text__link-none center u-text__link-black"
             to="/signin"
