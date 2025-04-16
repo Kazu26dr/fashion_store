@@ -59,12 +59,10 @@ const Profile = () => {
     fetchAllUserData();
   }, []);
 
-  console.log("allUserData", allUserData);
   const handleEdit = () => {
     setIsEditing(true);
   };
-  console.log("editedData", editedData);
-  console.log("userData", userData);
+
   const handleSave = async () => {
     if (!editedData || !auth.currentUser?.uid) return;
 

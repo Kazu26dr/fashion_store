@@ -41,8 +41,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   const isOwner = currentUser && currentUser.uid === product.user_id;
-  console.log("currentUser", currentUser);
-  console.log("product", product);
   const theme = createTheme({
     breakpoints: {
       values: {

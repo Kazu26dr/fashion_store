@@ -16,7 +16,6 @@ const ProductEdit = () => {
   const navigate = useNavigate();
   const auth = getAuth();
   let id = window.location.pathname.split("/product/edit")[1];
-  console.log(id);
   if (id !== "") {
     id = id.split("/")[1];
   }

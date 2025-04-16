@@ -29,7 +29,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export const createPaymentIntent = functions.https.onCall(async (data) => {
   try {
-    console.log('Received request:', data);
     
     if (!data || typeof data !== 'object') {
       throw new functions.https.HttpsError(
@@ -39,7 +38,6 @@ export const createPaymentIntent = functions.https.onCall(async (data) => {
     }
 
     const { amount } = data;
-    console.log('Amount received:', amount, 'Type:', typeof amount);
 
     if (typeof amount !== 'number' || isNaN(amount)) {
       throw new functions.https.HttpsError(
@@ -57,7 +55,6 @@ export const createPaymentIntent = functions.https.onCall(async (data) => {
 
     // 金額を整数に変換
     const amountInYen = Math.floor(amount);
-    console.log('Creating payment intent with amount:', amountInYen);
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInYen,
@@ -66,8 +63,6 @@ export const createPaymentIntent = functions.https.onCall(async (data) => {
         enabled: true,
       },
     });
-
-    console.log('Payment intent created successfully:', paymentIntent.id);
 
     return {
       clientSecret: paymentIntent.client_secret,

@@ -74,11 +74,6 @@ const ProductDetail = () => {
     (selectedSize: string) => {
       if (!product) return;
       
-      console.log("カートに商品を追加します:", {
-        productId: product.id,
-        selectedSize
-      });
-      
       const timestamp = firebaseTimestamp.now();
       const cartProduct: CartProduct = {
         id: product.id,
@@ -99,7 +94,6 @@ const ProductDetail = () => {
         user_id: auth.currentUser?.uid || "",
       };
       
-      console.log("カート用に変換された商品データ:", cartProduct);
       dispatch(addProductToCart(cartProduct));
     },
     [dispatch, product]
@@ -108,11 +102,6 @@ const ProductDetail = () => {
   const addFavorite = useCallback(
     (selectedSize: string) => {
       if (!product) return;
-
-      console.log("お気に入りに商品を追加します:", {
-        productId: product.id,
-        selectedSize
-      });
 
       const timestamp = firebaseTimestamp.now();
       const favoriteProduct: FavoriteProduct = {
@@ -133,7 +122,6 @@ const ProductDetail = () => {
         added_at: timestamp,
       };
 
-      console.log("お気に入り用に変換された商品データ:", favoriteProduct);
       dispatch(addFavoriteToCart(favoriteProduct));
     },
     [dispatch, product]
