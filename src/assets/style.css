@@ -252,6 +252,30 @@
     }
   }
 }
+
+.c-pagination__button {
+  font-weight: bold;
+  margin-right: 10px;
+  padding: 8px 16px;
+  color: #fff;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.c-pagination__button--lastpage {
+  font-weight: bold;
+  margin-left: 10px;
+  padding: 8px 16px;
+  color: #fff;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 /*********** Footer ***********/
 .l-footer {
   display: flex;

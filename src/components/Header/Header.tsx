@@ -26,6 +26,9 @@ const useStyles = makeStyles({
   iconButton: {
     margin: "0 0 0 auto",
   },
+  iconImage: {
+    cursor: "pointer",
+  },
 });
 
 const Header = () => {
@@ -99,6 +102,7 @@ const Header = () => {
             src={logo}
             alt="logo"
             width="110px"
+            className={classes.iconImage}
             onClick={() => navigate("/")}
           />
           {isSignedIn && (

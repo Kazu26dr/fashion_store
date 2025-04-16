@@ -1,4 +1,4 @@
-import { IconButton, Badge } from "@mui/material";
+import { IconButton, Badge, Tooltip } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -6,7 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsInCart } from "../../redux/users/selectors";
 import { getUserId } from "../../redux/users/selectors";
 import { useEffect, useState } from "react";
-import { collection, onSnapshot, QuerySnapshot, DocumentData, getDocs } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  QuerySnapshot,
+  DocumentData,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { AppDispatch } from "../../redux/store/store";
 import { fetchProductsInCartAction } from "../../redux/users/actions";
@@ -23,7 +29,10 @@ const HeaderMenus = (props: HeaderMenusProps) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   // FirebaseのCartProductをシリアライズ可能な形式に変換するヘルパー関数
-  const convertToSerializableProduct = (product: CartProduct, docId: string): SerializableCartProduct => {
+  const convertToSerializableProduct = (
+    product: CartProduct,
+    docId: string
+  ): SerializableCartProduct => {
     const serializedProduct: SerializableCartProduct = {
       ...product,
       cartId: docId,
@@ -33,7 +42,7 @@ const HeaderMenus = (props: HeaderMenusProps) => {
     if (product.added_at && product.added_at instanceof Timestamp) {
       serializedProduct.added_at = {
         seconds: product.added_at.seconds,
-        nanoseconds: product.added_at.nanoseconds
+        nanoseconds: product.added_at.nanoseconds,
       };
     }
 
@@ -61,13 +70,15 @@ const HeaderMenus = (props: HeaderMenusProps) => {
       try {
         const userCartRef = collection(db, "users", uid, "cart");
         const cartDocs = await getDocs(userCartRef);
-        
+
         if (!cartDocs.empty) {
-          const allProducts: SerializableCartProduct[] = cartDocs.docs.map((doc) => {
-            const product = doc.data() as CartProduct;
-            return convertToSerializableProduct(product, doc.id);
-          });
-          
+          const allProducts: SerializableCartProduct[] = cartDocs.docs.map(
+            (doc) => {
+              const product = doc.data() as CartProduct;
+              return convertToSerializableProduct(product, doc.id);
+            }
+          );
+
           dispatch(fetchProductsInCartAction(allProducts));
         }
         setIsInitialized(true);
@@ -101,12 +112,17 @@ const HeaderMenus = (props: HeaderMenusProps) => {
 
       changes.forEach((change) => {
         const product = change.doc.data() as CartProduct;
-        const serializedProduct = convertToSerializableProduct(product, change.doc.id);
+        const serializedProduct = convertToSerializableProduct(
+          product,
+          change.doc.id
+        );
 
         switch (change.type) {
           case "added": {
             // すでに存在するか確認（IDで）
-            const existingIndex = updatedProducts.findIndex(p => p.cartId === change.doc.id);
+            const existingIndex = updatedProducts.findIndex(
+              (p) => p.cartId === change.doc.id
+            );
             if (existingIndex === -1) {
               updatedProducts = [...updatedProducts, serializedProduct];
               shouldDispatch = true;
@@ -114,12 +130,14 @@ const HeaderMenus = (props: HeaderMenusProps) => {
             break;
           }
           case "modified": {
-            const index = updatedProducts.findIndex((p) => p.cartId === change.doc.id);
+            const index = updatedProducts.findIndex(
+              (p) => p.cartId === change.doc.id
+            );
             if (index !== -1) {
               updatedProducts = [
                 ...updatedProducts.slice(0, index),
                 serializedProduct,
-                ...updatedProducts.slice(index + 1)
+                ...updatedProducts.slice(index + 1),
               ];
               shouldDispatch = true;
             }
@@ -127,7 +145,9 @@ const HeaderMenus = (props: HeaderMenusProps) => {
           }
           case "removed": {
             const previousLength = updatedProducts.length;
-            updatedProducts = updatedProducts.filter((p) => p.cartId !== change.doc.id);
+            updatedProducts = updatedProducts.filter(
+              (p) => p.cartId !== change.doc.id
+            );
             if (previousLength !== updatedProducts.length) {
               shouldDispatch = true;
             }
@@ -147,17 +167,23 @@ const HeaderMenus = (props: HeaderMenusProps) => {
 
   return (
     <>
-      <IconButton onClick={() => navigate("/cart")}>
-        <Badge badgeContent={productsInCart.length} color="primary">
-          <ShoppingCartIcon />
-        </Badge>
-      </IconButton>
-      <IconButton onClick={() => navigate("/favorite")}>
-        <FavoriteBorderIcon />
-      </IconButton>
-      <IconButton onClick={(e) => props.handleDrawerToggle(e)}>
-        <MenuIcon />
-      </IconButton>
+      <Tooltip title="cart" arrow placement="bottom">
+        <IconButton onClick={() => navigate("/cart")}>
+          <Badge badgeContent={productsInCart.length} color="primary">
+            <ShoppingCartIcon />
+          </Badge>
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="favorite">
+        <IconButton onClick={() => navigate("/favorite")}>
+          <FavoriteBorderIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="menu">
+        <IconButton onClick={(e) => props.handleDrawerToggle(e)}>
+          <MenuIcon />
+        </IconButton>
+      </Tooltip>
     </>
   );
 };

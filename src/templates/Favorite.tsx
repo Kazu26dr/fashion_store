@@ -1,11 +1,12 @@
-import { List } from "@mui/material";
+import { Box, Button, List, Typography } from "@mui/material";
 import { FavoriteProduct } from "../redux/users/types";
 import { makeStyles } from "@mui/styles";
 import { FavoriteItem } from "../components/Products";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { Alert } from "../components/UIkit";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   orderList: {
@@ -17,6 +18,7 @@ const Favorite = () => {
   const classes = useStyles();
   const [favorites, setFavorites] = useState<FavoriteProduct[]>([]);
   const uid = auth.currentUser?.uid;
+  const navigate = useNavigate();
 
   const fetchFavoriteData = async () => {
     if (!uid) return;
@@ -38,6 +40,10 @@ const Favorite = () => {
     setFavorites(favorites.filter((favorite) => favorite.id !== id));
   };
 
+  const goToShopping = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
+
   return (
     <section className="c-section-container">
       <h2 className="u-text__headline u-text-center">お気に入り商品</h2>
@@ -52,7 +58,19 @@ const Favorite = () => {
           ))}
         </List>
       ) : (
-        <p className="u-text-center">お気に入り商品がありません</p>
+        <div className="c-container">
+          <Box sx={{ textAlign: "center", py: 4 }}>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              お気に入り商品がありません
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 4 }}>
+              素敵な商品を見つけて、ショッピングをお楽しみください。
+            </Typography>
+            <Button variant="contained" onClick={goToShopping}>
+              ショッピングを始める
+            </Button>
+          </Box>
+        </div>
       )}
       <div className="u-text-center">
         {favorites.length > 0 && (
