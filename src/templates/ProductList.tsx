@@ -6,7 +6,7 @@ import { getProducts } from "../redux/products/selectors";
 import { AppDispatch } from "../redux/store/store";
 import { useLocation } from "react-router-dom";
 
-const NUM_OF_ITEMS = 10; // 1ページあたりの商品数
+const NUM_OF_ITEMS = 9; // 1ページあたりの商品数
 
 const ProductList = () => {
   const dispatch = useDispatch<AppDispatch>();
