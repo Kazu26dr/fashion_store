@@ -174,12 +174,12 @@ const HeaderMenus = (props: HeaderMenusProps) => {
           </Badge>
         </IconButton>
       </Tooltip>
-      <Tooltip title="favorite">
+      <Tooltip title="favorite" placement="bottom" arrow>
         <IconButton onClick={() => navigate("/favorite")}>
           <FavoriteBorderIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="menu">
+      <Tooltip title="menu" placement="bottom" arrow>
         <IconButton onClick={(e) => props.handleDrawerToggle(e)}>
           <MenuIcon />
         </IconButton>

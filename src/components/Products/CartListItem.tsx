@@ -3,6 +3,7 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
+  Tooltip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
@@ -60,9 +61,11 @@ const CartListItem = (props: { product: SerializableCartProduct }) => {
           <ListItemText primary={name} secondary={"サイズ：" + size} />
           <ListItemText primary={"￥" + price} />
         </div>
-        <IconButton onClick={() => removeProductCart(props.product.cartId || props.product.id)}>
-          <DeleteIcon />
-        </IconButton>
+        <Tooltip title="delete" placement="bottom" arrow>
+          <IconButton onClick={() => removeProductCart(props.product.cartId || props.product.id)}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
       </ListItem>
       <Divider />
     </>
