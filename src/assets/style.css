@@ -396,3 +396,10 @@
   background: #007aff; /* アクティブなドットの色 */
   opacity: 1;
 }
+
+/* 画面幅が600px以下の場合のペジネーション位置調整 */
+@media screen and (max-width: 600px) {
+  .custom-swiper .swiper-pagination {
+    top: 250px !important;
+  }
+}

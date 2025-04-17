@@ -24,12 +24,12 @@ type CartProduct = ProductData & {
 const SliderBox = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     margin: "0 auto 20px auto",
-    height: "320px",
+    height: "250px",
     width: "320px",
   },
   [theme.breakpoints.up("sm")]: {
     margin: "0 auto",
-    height: "400px",
+    height: "350px",
     width: "400px",
   },
 }));

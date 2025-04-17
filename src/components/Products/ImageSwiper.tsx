@@ -22,7 +22,7 @@ const ImageSwiper = (props: { images: string[] }) => {
       simulateTouch={true}
       className="custom-swiper"
     >
-      <div className="swiper-pagination" style={{ position: 'absolute', top: '10px', bottom: 'auto', zIndex: 10 }}></div>
+      <div className="swiper-pagination" style={{ position: 'absolute', top: '30px', bottom: 'auto', zIndex: 10 }}></div>
       
       {props.images.length === 0 ? (
         <SwiperSlide>
