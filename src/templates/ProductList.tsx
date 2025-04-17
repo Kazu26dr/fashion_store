@@ -5,6 +5,8 @@ import { fetchProducts } from "../redux/products/operations";
 import { getProducts } from "../redux/products/selectors";
 import { AppDispatch } from "../redux/store/store";
 import { useLocation } from "react-router-dom";
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { Fab } from "@mui/material";
 
 const NUM_OF_ITEMS = 9; // 1ページあたりの商品数
 
@@ -13,6 +15,7 @@ const ProductList = () => {
   const products = useSelector(getProducts);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const query = useLocation().search;
   const gender = /^\?gender=/.test(query) ? query.split("?gender=")[1] : "";
@@ -28,6 +31,26 @@ const ProductList = () => {
     dispatch(fetchProducts(gender, category));
   }, [gender, category, dispatch]);
 
+  // スクロールイベントの処理をシンプルに修正
+  useEffect(() => {
+    const mainContainer = document.querySelector('.c-main');
+    if (!mainContainer) return;
+
+    const onScroll = () => {
+      const scrolled = mainContainer.scrollTop;
+      setShowScrollTop(scrolled > 0);
+    };
+
+    // 初期状態のチェック
+    onScroll();
+
+    // イベントリスナーの登録
+    mainContainer.addEventListener('scroll', onScroll);
+
+    // クリーンアップ
+    return () => mainContainer.removeEventListener('scroll', onScroll);
+  }, []);
+
   const onPrev = () => {
     if (page <= 1) return;
     setPage(page - 1);
@@ -36,6 +59,26 @@ const ProductList = () => {
   const onNext = () => {
     if (page >= lastPage) return;
     setPage(page + 1);
+  };
+
+  const scrollToTop = () => {
+    console.log("scrollToTop");
+    try {
+      const mainContainer = document.querySelector('.c-main');
+      if (mainContainer) {
+        mainContainer.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      }
+    } catch {
+      // スムーススクロールがサポートされていない場合のフォールバック
+      const mainContainer = document.querySelector('.c-main');
+      if (mainContainer) {
+        mainContainer.scrollTop = 0;
+      }
+    }
   };
 
   // 現在のページの商品を取得
@@ -94,6 +137,32 @@ const ProductList = () => {
           Next
         </button>
       </div>
+
+      <Fab
+        color="primary"
+        size="medium"
+        onClick={scrollToTop}
+        style={{
+          position: 'fixed',
+          bottom: '30px',
+          right: '30px',
+          zIndex: 9999,
+          backgroundColor: '#666',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '8px 16px',
+          opacity: showScrollTop ? 1 : 0,
+          visibility: showScrollTop ? 'visible' : 'hidden',
+          transition: 'opacity 0.3s, visibility 0.3s',
+          pointerEvents: showScrollTop ? 'auto' : 'none',
+          cursor: 'pointer',
+        }}
+        className="scroll-top-button"
+        aria-label="トップに戻る"
+      >
+        <ArrowUpwardIcon />
+      </Fab>
     </section>
   );
 };

@@ -82,6 +82,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
             height: 200,
             objectFit: "cover",
             cursor: "pointer",
+            loading: "lazy",
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
           onClick={() => navigate(`/product/${product.id}`)}
         />
