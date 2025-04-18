@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../redux/store/store";
 import { useDispatch } from "react-redux";
-import { deleteProductAction } from "../../redux/products/actions";
+import { deleteProduct } from "../../redux/products/operations";
 import NoImage from "../../assets/img/src/no_image.png";
 import { getAuth } from "firebase/auth";
 
@@ -137,7 +137,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <MenuItem onClick={() => navigate(`/product/edit/${product.id}`)}>
               編集する
             </MenuItem>
-            <MenuItem onClick={() => dispatch(deleteProductAction(product.id))}>
+            <MenuItem onClick={() => dispatch(deleteProduct(product.id))}>
               削除する
             </MenuItem>
           </Menu>
