@@ -9,9 +9,11 @@ import {
   MenuItem,
   createTheme,
   ThemeProvider,
+  Skeleton,
+  Box
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../redux/store/store";
 import { useDispatch } from "react-redux";
@@ -29,8 +31,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const auth = getAuth();
   const currentUser = auth.currentUser;
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [contentLoaded, setContentLoaded] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  // 商品コンテンツの読み込み状態をシミュレート
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setContentLoaded(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -38,6 +51,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
   };
 
   const isOwner = currentUser && currentUser.uid === product.user_id;
@@ -70,6 +87,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
           flexDirection: "column",
         }}
       >
+        {!imageLoaded && (
+          <Skeleton 
+            variant="rectangular" 
+            height={200}
+            animation="wave"
+            sx={{ 
+              bgcolor: 'rgb(255, 252, 252)',
+            }}
+          />
+        )}
         <CardMedia
           component="img"
           image={
@@ -85,8 +112,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
             loading: "lazy",
             transform: "translateZ(0)",
             willChange: "transform",
+            display: imageLoaded ? 'block' : 'none',
           }}
           onClick={() => navigate(`/product/${product.id}`)}
+          onLoad={handleImageLoad}
         />
         <CardContent
           sx={{
@@ -96,28 +125,48 @@ const ProductCard = ({ product }: ProductCardProps) => {
             },
           }}
         >
-          <Typography
-            component="h3"
-            sx={{
-              fontSize: "1rem",
-              fontWeight: 500,
-              marginBottom: 1,
-              color: "text.primary",
-            }}
-          >
-            {product.name}
-          </Typography>
-          <Typography
-            component="p"
-            sx={{
-              fontSize: "1.1rem",
-              fontWeight: 600,
-              color: "error.main",
-            }}
-          >
-            ￥{price}
-          </Typography>
-          {isOwner && (
+          {!contentLoaded ? (
+            <Box>
+              <Skeleton 
+                variant="text" 
+                height={28} 
+                animation="wave"
+                sx={{ bgcolor: 'rgb(255, 252, 252)' }}
+              />
+              <Skeleton 
+                variant="text" 
+                width="60%" 
+                height={32} 
+                animation="wave"
+                sx={{ bgcolor: 'rgb(255, 252, 252)', mt: 1 }}
+              />
+            </Box>
+          ) : (
+            <>
+              <Typography
+                component="h3"
+                sx={{
+                  fontSize: "1rem",
+                  fontWeight: 500,
+                  marginBottom: 1,
+                  color: "text.primary",
+                }}
+              >
+                {product.name}
+              </Typography>
+              <Typography
+                component="p"
+                sx={{
+                  fontSize: "1.1rem",
+                  fontWeight: 600,
+                  color: "error.main",
+                }}
+              >
+                ￥{price}
+              </Typography>
+            </>
+          )}
+          {isOwner && contentLoaded && (
             <IconButton
               style={{ marginLeft: "auto", display: "flex" }}
               aria-controls="simple-menu"
