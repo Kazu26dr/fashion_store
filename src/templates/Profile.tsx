@@ -152,7 +152,7 @@ const Profile = () => {
       </Card>
 
       {/* 編集用ダイアログ */}
-      <Dialog open={openDialog} onClose={handleCancel}>
+      <Dialog fullWidth maxWidth="xs" open={openDialog} onClose={handleCancel}>
         <DialogTitle>プロフィール編集</DialogTitle>
         <DialogContent>
           <div className="p-profile__form-group" style={{ marginTop: "10px" }}>
@@ -162,6 +162,7 @@ const Profile = () => {
               name="username"
               value={editedData?.username || ""}
               onChange={handleChange}
+              fullWidth
             />
           </div>
           <div className="p-profile__form-group" style={{ marginTop: "20px" }}>
@@ -171,6 +172,7 @@ const Profile = () => {
               name="email"
               value={editedData?.email || ""}
               onChange={handleChange}
+              fullWidth
             />
           </div>
         </DialogContent>
