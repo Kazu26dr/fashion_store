@@ -71,7 +71,10 @@ const FavoriteItem = (props: FavoriteItemProps) => {
     if (!uid) return;
 
     try {
-      const favoriteRef = doc(db, "users", uid, "favorites", props.id);
+      // IDが結合形式（id_size）の場合、元のIDを取得
+      const docId = props.id.includes('_') ? props.id : `${props.productId}_${props.size}`;
+      const favoriteRef = doc(db, "users", uid, "favorites", docId);
+      
       await deleteDoc(favoriteRef);
       props.onDelete(props.id);
     } catch (error) {
