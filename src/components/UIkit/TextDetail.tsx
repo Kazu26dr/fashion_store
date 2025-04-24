@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { TextDetailProps } from "./type";
+import { TextDetailProps } from "./types";
 
 const useStyles = makeStyles(({
     row: {

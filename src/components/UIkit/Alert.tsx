@@ -1,7 +1,7 @@
 import { Alert as MuiAlert, Snackbar  } from "@mui/material";
 import { useState } from "react";
-import { AlertSeverity } from "./type";
-import { AlertMessage } from "./type";
+import { AlertSeverity } from "./types";
+import { AlertMessage } from "./types";
 
 interface AlertProps {
     severity: AlertSeverity;

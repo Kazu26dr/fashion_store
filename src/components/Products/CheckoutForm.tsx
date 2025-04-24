@@ -5,6 +5,7 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
+import { BillingDetails } from "./types";
 
 const StyledForm = styled('form')({
   width: '100%',
@@ -45,18 +46,6 @@ const PayButton = styled(Button)({
     backgroundColor: '#ccc',
   },
 });
-
-type BillingDetails = {
-  name: string;
-  email: string;
-  phone: string;
-  address: {
-    postal_code: string;
-    state: string;
-    line1: string;
-    country: string;
-  };
-};
 
 type Props = {
   onSuccess: (paymentIntentId?: string) => void;

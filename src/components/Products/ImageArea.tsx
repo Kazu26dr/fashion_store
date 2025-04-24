@@ -5,6 +5,7 @@ import { useCallback, useRef } from "react";
 import { storage, auth } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import ImagePreview from "./ImagePreview";
+import { ImageAreaProps } from "./types";
 
 const useStyles = makeStyles({
   imageArea: {
@@ -12,15 +13,6 @@ const useStyles = makeStyles({
     height: "48px !important",
   },
 });
-
-interface ImageAreaProps {
-  image: string;
-  setImage: (image: string) => void;
-  images?: Array<{ id: string; path: string }>;
-  setImages?: React.Dispatch<
-    React.SetStateAction<Array<{ id: string; path: string }>>
-  >;
-}
 
 const ImageArea = (props: ImageAreaProps) => {
   const classes = useStyles();

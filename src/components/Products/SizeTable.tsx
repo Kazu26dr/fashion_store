@@ -15,6 +15,7 @@ import { Alert } from "../UIkit";
 import { useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, setDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import { SizeTableProps } from "./types";
 
 const useStyles = makeStyles({
   iconCell: {
@@ -26,18 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-interface SizeItem {
-  id: string;
-  productId: string;
-  size: string;
-  quantity: number;
-  images: string[];
-  name: string;
-  description: string;
-  price: number;
-}
-
-const SizeTable = (props: { sizes: SizeItem[], addProduct: (size: string) => void, addFavorite: (size: string) => void }) => {
+const SizeTable = (props: { sizes: SizeTableProps[], addProduct: (size: string) => void, addFavorite: (size: string) => void }) => {
   const classes = useStyles();
   const sizes = props.sizes;
   const [favoriteSizes, setFavoriteSizes] = useState<{[size: string]: boolean}>({});

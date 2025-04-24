@@ -14,18 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { makeStyles } from "@mui/styles";
 import { TextInput } from "../UIkit";
-
-// サイズアイテムの型定義
-interface SizeItem {
-  size: string;
-  quantity: number;
-}
-
-// propsの型定義
-interface SetSizeAreaProps {
-  sizes: SizeItem[];
-  setSizes?: (sizes: SizeItem[]) => void;
-}
+import { SetSizeAreaProps, SizeItem } from "./types";
 
 const useStyles = makeStyles({
   iconCell: {

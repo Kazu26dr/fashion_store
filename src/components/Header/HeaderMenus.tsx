@@ -19,7 +19,7 @@ import { fetchProductsInCartAction } from "../../redux/users/actions";
 import { CartProduct, SerializableCartProduct } from "../../redux/users/types";
 import { Timestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { HeaderMenusProps } from "./type";
+import { HeaderMenusProps } from "./types";
 
 const HeaderMenus = (props: HeaderMenusProps) => {
   const navigate = useNavigate();

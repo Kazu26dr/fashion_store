@@ -9,6 +9,8 @@ import { deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { doc } from "firebase/firestore";
 import { auth } from "../../firebase";
+import { useState } from "react";
+import { FavoriteItemProps } from "./types";
 
 const useStyles = makeStyles({
   list: {
@@ -55,10 +57,6 @@ const useStyles = makeStyles({
     },
   },
 });
-
-interface FavoriteItemProps extends FavoriteProduct {
-  onDelete: (id: string) => void;
-}
 
 const FavoriteItem = (props: FavoriteItemProps) => {
   const classes = useStyles();

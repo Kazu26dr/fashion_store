@@ -1,4 +1,3 @@
-import { ProductData } from "../../redux/products/types";
 import {
   Card,
   CardContent,
@@ -20,10 +19,7 @@ import { useDispatch } from "react-redux";
 import { deleteProduct } from "../../redux/products/operations";
 import NoImage from "../../assets/img/src/no_image.png";
 import { getAuth } from "firebase/auth";
-
-type ProductCardProps = {
-  product: ProductData;
-};
+import { ProductCardProps } from "./types";
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const price = product.price.toLocaleString();

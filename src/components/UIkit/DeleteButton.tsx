@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import { DeleteButtonProps } from "./type";
+import { DeleteButtonProps } from "./types";
 
 // デフォルトテーマを作成
 const theme = createTheme();

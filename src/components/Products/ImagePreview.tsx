@@ -1,9 +1,5 @@
-
-const ImagePreview = (props: {
-    id: string;
-    path: string;
-    delete: (id: string) => void;
-}) => {
+import { ImagePreviewProps } from "./types";
+const ImagePreview = (props: ImagePreviewProps) => {
   return (
     <div className="p-media__thumb" onClick={() => props.delete(props.id)}>
         <img src={props.path} alt="プレビュー" />
@@ -11,4 +7,4 @@ const ImagePreview = (props: {
   )
 }
 
-export default ImagePreview     
+export default ImagePreview;

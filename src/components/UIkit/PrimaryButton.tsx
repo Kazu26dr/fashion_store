@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import { makeStyles } from "@mui/styles";
-import { PrimaryButtonProps } from "./type";
+import { PrimaryButtonProps } from "./types";
 
 const useStyles = makeStyles(() => ({
   button: {
