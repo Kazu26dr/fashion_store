@@ -71,7 +71,7 @@ const ProductList = () => {
     page * NUM_OF_ITEMS
   );
 
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+  const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage + 1);
   };
 
