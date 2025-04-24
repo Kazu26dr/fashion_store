@@ -6,7 +6,7 @@ import { getProducts } from "../redux/products/selectors";
 import { AppDispatch } from "../redux/store/store";
 import { useLocation } from "react-router-dom";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import { Fab } from "@mui/material";
+import { Fab, TablePagination } from "@mui/material";
 
 const NUM_OF_ITEMS = 9; // 1ページあたりの商品数
 
@@ -14,18 +14,12 @@ const ProductList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector(getProducts);
   const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(NUM_OF_ITEMS);
 
   const query = useLocation().search;
   const gender = /^\?gender=/.test(query) ? query.split("?gender=")[1] : "";
   const category = /^\?category=/.test(query) ? query.split("?category=")[1] : "";
-
-  useEffect(() => {
-    // 総ページ数を計算
-    const totalPages = Math.ceil(products.length / NUM_OF_ITEMS);
-    setLastPage(totalPages);
-  }, [products]);
 
   useEffect(() => {
     dispatch(fetchProducts(gender, category));
@@ -50,16 +44,6 @@ const ProductList = () => {
     // クリーンアップ
     return () => mainContainer.removeEventListener('scroll', onScroll);
   }, []);
-
-  const onPrev = () => {
-    if (page <= 1) return;
-    setPage(page - 1);
-  };
-
-  const onNext = () => {
-    if (page >= lastPage) return;
-    setPage(page + 1);
-  };
 
   const scrollToTop = () => {
     console.log("scrollToTop");
@@ -87,57 +71,41 @@ const ProductList = () => {
     page * NUM_OF_ITEMS
   );
 
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    setPage(newPage + 1);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPage(1);
+    setRowsPerPage(parseInt(event.target.value));
+  };
+
   return (
     <section className="c-section-container">
       <div
-        className="p-grid__row"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          margin: "-8px",
-          width: "calc(100% + 16px)",
-          justifyContent: "flex-start",
-        }}
+        className="p-grid__row p-flex_start"
       >
         {currentProducts.length > 0 &&
           currentProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
       </div>
-      <div className="pagination" style={{ marginTop: "20px", textAlign: "center" }}>
-        <button
-          onClick={onPrev}
-          disabled={page <= 1}
-          style={{
-            marginRight: "10px",
-            padding: "8px 16px",
-            cursor: page <= 1 ? "not-allowed" : "pointer",
-            opacity: page <= 1 ? 0.5 : 1,
-            border: "none",
-            borderRadius: "10px",
+      <div className="c-container-pagination">
+        <TablePagination
+          component="div"
+          count={products.length}
+          page={page - 1}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[NUM_OF_ITEMS]}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "20px",
           }}
-        >
-          Prev
-        </button>
-        <span style={{ margin: "0 10px", color: "#000", fontWeight: "bold" }}>
-          {page} / {lastPage}
-        </span>
-        <button
-          onClick={onNext}
-          disabled={page >= lastPage}
-          style={{
-            marginLeft: "10px",
-            padding: "8px 16px",
-            cursor: page >= lastPage ? "not-allowed" : "pointer",
-            opacity: page >= lastPage ? 0.5 : 1,
-            border: "none",
-            borderRadius: "10px",
-          }}
-        >
-          Next
-        </button>
+        />
       </div>
-
       <Fab
         color="primary"
         size="medium"

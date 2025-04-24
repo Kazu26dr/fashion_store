@@ -1,6 +1,5 @@
-import { ListItemText, ListItem, ListItemAvatar } from "@mui/material";
+import { ListItemText, ListItem, ListItemAvatar, Skeleton } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { FavoriteProduct } from "../../redux/users/types";
 import PrimaryButton from "../UIkit/PrimaryButton";
 import { useNavigate } from "react-router-dom";
 import NoImage from "../../assets/img/src/no_image.png";
@@ -61,6 +60,7 @@ const useStyles = makeStyles({
 const FavoriteItem = (props: FavoriteItemProps) => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [imageLoaded, setImageLoaded] = useState(false);
   
   const goToProductDetail = (id: string) => {
     navigate(`/product/${id}`);
@@ -79,13 +79,30 @@ const FavoriteItem = (props: FavoriteItemProps) => {
     }
   };
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   return (
     <ListItem className={classes.list}>
       <ListItemAvatar>
+        {!imageLoaded && (
+          <Skeleton 
+            variant="rectangular" 
+            height={128}
+            width={128}
+            animation="wave"
+            sx={{ 
+              bgcolor: 'rgb(228, 218, 218)',
+            }}
+          />
+        )}
         <img
           className={classes.image}
           src={props.images[0] || NoImage}
           alt="商品画像"
+          onLoad={handleImageLoad}
+          style={{ display: imageLoaded ? 'block' : 'none' }}
         />
       </ListItemAvatar>
       <div className={classes.text}>

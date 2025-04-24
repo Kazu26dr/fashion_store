@@ -70,6 +70,13 @@
   box-sizing: border-box;
 }
 
+.c-container-pagination {
+  margin-top: 20px;
+  text-align: center;
+  background-color: #ffffffe0;
+  border-radius: 10px;
+}
+
 .c-edit-container {
   border: 1px solid #e0e0e0;
   border-radius: 10px;
@@ -102,6 +109,21 @@
 .center {
   margin: 0 auto;
   text-align: center;
+}
+
+.p-flex_start {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -8px;
+  width: calc(100% + 16px);
+  justify-content: flex-start;
+}
+
+.p-flex_center {
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .p-grid__column {
@@ -145,6 +167,12 @@
   left: 0;
   width: 100%;
   height: auto;
+}
+
+.p-mwdia__contain {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .p-profile {
@@ -393,8 +421,12 @@
 }
 
 .custom-swiper .swiper-pagination-bullet-active {
-  background: #007aff; /* アクティブなドットの色 */
+  background: #999; /* アクティブなドットの色 */
   opacity: 1;
+}
+
+.swiper-button-prev, .swiper-button-next {
+  color: #999;
 }
 
 /* 画面幅が600px以下の場合のペジネーション位置調整 */
@@ -403,6 +435,8 @@
     top: 250px !important;
   }
 }
+
+
 
 /* スクロールトップボタン */
 .scroll-top-button {

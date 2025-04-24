@@ -23,14 +23,7 @@ const Search = () => {
     <section className="c-section-container">
       <h2 className="u-text__headline u-text-center">検索結果: {keyword}</h2>
       <div
-        className="p-grid__row"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          margin: "-8px",
-          width: "calc(100% + 16px)",
-          justifyContent: "flex-start",
-        }}
+        className="p-grid__row p-flex_start"
       >
         {products.length > 0 ? (
           products.map((product) => (

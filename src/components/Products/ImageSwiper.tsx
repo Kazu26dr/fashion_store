@@ -27,22 +27,12 @@ const ImageSwiper = (props: { images: string[] }) => {
       {props.images.length === 0 ? (
         <SwiperSlide>
           <div
-            className="p-media__thumb"
-            style={{
-              height: "320px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+            className="p-media__thumb p-flex_center"
           >
             <img
               src={NoImage}
               alt="No Image"
-              style={{
-                maxWidth: "100%",
-                maxHeight: "100%",
-                objectFit: "contain",
-              }}
+              className="p-mwdia__contain"
             />
           </div>
         </SwiperSlide>
@@ -50,22 +40,13 @@ const ImageSwiper = (props: { images: string[] }) => {
         props.images.map((image, index) => (
           <SwiperSlide key={index}>
             <div
-              className="p-media__thumb"
-              style={{
-                height: "320px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+              className="p-media__thumb p-flex_center"
+
             >
               <img
                 src={image}
                 alt={`商品画像 ${index + 1}`}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                  objectFit: "contain",
-                }}
+                className="p-mwdia__contain"
               />
             </div>
           </SwiperSlide>
