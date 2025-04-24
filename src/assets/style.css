@@ -1,4 +1,4 @@
-/*********** Module Spacer ***********/
+/*********** 1. モジュールスペーサー ***********/
 .module-spacer--extra-extra-small {
   height: 12px;
 }
@@ -12,7 +12,7 @@
   height: 32px;
 }
 
-/*********** Section ***********/
+/*********** 2. セクション ***********/
 .c-main {
   padding: 96px 0;
 }
@@ -106,6 +106,7 @@
   text-align: center;
 }
 
+/*********** 3. レイアウト ***********/
 .center {
   margin: 0 auto;
   text-align: center;
@@ -147,6 +148,7 @@
   width: calc(50% - 1rem);
 }
 
+/*********** 4. メディア ***********/
 .p-media__thumb {
   position: relative;
   overflow: hidden;
@@ -175,6 +177,7 @@
   object-fit: contain;
 }
 
+/*********** 5. プロフィール ***********/
 .p-profile {
   :is(.p-profile__container) {
     max-width: 600px;
@@ -263,6 +266,7 @@
   justify-content: space-evenly;
 }
 
+/*********** 6. ボタン ***********/
 .c-button {
   padding: 0.75rem 1.5rem;
   border: none;
@@ -313,7 +317,7 @@
   cursor: pointer;
 }
 
-/*********** Footer ***********/
+/*********** 7. フッター ***********/
 .l-footer {
   display: flex;
   flex-flow: row wrap;
@@ -327,6 +331,7 @@
   margin-right: 1rem;
 }
 
+/*********** 8. ユーティリティ ***********/
 .u-text-small {
   font-size: 0.9rem;
 }
@@ -375,32 +380,11 @@
   display: none;
 }
 
-@media screen and (min-width: 576px) {
-  /*********** Module Spacer ***********/
-  .module-spacer--extra-extra-small {
-    height: 16px;
-  }
-  .module-spacer--extra-small {
-    height: 20px;
-  }
-  .module-spacer--small {
-    height: 32px;
-  }
-
-  /*********** Section ***********/
-  .c-section-wrapin {
-    max-width: 1024px;
-  }
+.u-text-bold {
+  font-weight: bold;
 }
 
-@media screen and (min-width: 1024px) {
-  /*********** Module Spacer ***********/
-  .module-spacer--medium {
-    height: 48px;
-  }
-}
-
-/*********** Swiper ***********/
+/*********** 9. Swiper ***********/
 .custom-swiper {
   position: relative;
   padding-top: 30px; /* ページネーションの余白確保 */
@@ -429,16 +413,7 @@
   color: #999;
 }
 
-/* 画面幅が600px以下の場合のペジネーション位置調整 */
-@media screen and (max-width: 600px) {
-  .custom-swiper .swiper-pagination {
-    top: 250px !important;
-  }
-}
-
-
-
-/* スクロールトップボタン */
+/*********** 10. アニメーション ***********/
 .scroll-top-button {
   animation: fadeIn 0.3s ease-in-out;
 }
@@ -451,5 +426,50 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/*********** 11. メディアクエリ ***********/
+@media screen and (min-width: 575px) {
+  .u-text-bold {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .u-text-left {
+    text-align: left;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  /*********** Module Spacer ***********/
+  .module-spacer--extra-extra-small {
+    height: 16px;
+  }
+  .module-spacer--extra-small {
+    height: 20px;
+  }
+  .module-spacer--small {
+    height: 32px;
+  }
+
+  /*********** Section ***********/
+  .c-section-wrapin {
+    max-width: 1024px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  /*********** Module Spacer ***********/
+  .module-spacer--medium {
+    height: 48px;
+  }
+}
+
+/* 画面幅が600px以下の場合のペジネーション位置調整 */
+@media screen and (max-width: 600px) {
+  .custom-swiper .swiper-pagination {
+    top: 250px !important;
   }
 }
