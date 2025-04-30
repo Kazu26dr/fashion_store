@@ -6,16 +6,22 @@ import { getProducts } from "../redux/products/selectors";
 import { AppDispatch } from "../redux/store/store";
 import { useLocation } from "react-router-dom";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import { Fab, TablePagination } from "@mui/material";
+import { Fab, TablePagination, useTheme, useMediaQuery } from "@mui/material";
 
-const NUM_OF_ITEMS = 9; // 1ページあたりの商品数
+const ITEMS_PER_PAGE = {
+  xs: 10,
+  sm: 10,
+  md: 21
+};
 
 const ProductList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector(getProducts);
   const [page, setPage] = useState(1);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(NUM_OF_ITEMS);
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'));
+  const [rowsPerPage, setRowsPerPage] = useState(isMd ? ITEMS_PER_PAGE.md : ITEMS_PER_PAGE.xs);
 
   const query = useLocation().search;
   const gender = /^\?gender=/.test(query) ? query.split("?gender=")[1] : "";
@@ -24,6 +30,10 @@ const ProductList = () => {
   useEffect(() => {
     dispatch(fetchProducts(gender, category));
   }, [gender, category, dispatch]);
+
+  useEffect(() => {
+    setRowsPerPage(isMd ? ITEMS_PER_PAGE.md : ITEMS_PER_PAGE.xs);
+  }, [isMd]);
 
   // スクロールイベントの処理をシンプルに修正
   useEffect(() => {
@@ -67,8 +77,8 @@ const ProductList = () => {
 
   // 現在のページの商品を取得
   const currentProducts = products.slice(
-    (page - 1) * NUM_OF_ITEMS,
-    page * NUM_OF_ITEMS
+    (page - 1) * rowsPerPage,
+    page * rowsPerPage
   );
 
   const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -98,7 +108,7 @@ const ProductList = () => {
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPageOptions={[NUM_OF_ITEMS]}
+          rowsPerPageOptions={isMd ? [ITEMS_PER_PAGE.md] : [ITEMS_PER_PAGE.xs]}
           sx={{
             display: "flex",
             justifyContent: "center",

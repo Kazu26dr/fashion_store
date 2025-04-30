@@ -72,15 +72,47 @@ const ProductCard = ({ product }: ProductCardProps) => {
         sx={{
           margin: 1,
           width: {
-            xs: "calc(100% - 16px)",
+            xs: "calc(50% - 16px)",
             sm: "calc(50% - 16px)",
             md: "calc(33.333% - 16px)",
+          },
+          aspectRatio: {
+            xs: "1 / 1",
+            sm: "auto"
+          },
+          height: {
+            sm: "auto",
+            md: "auto"
           },
           backgroundColor: "#fff",
           borderRadius: 2,
           boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
           display: "flex",
           flexDirection: "column",
+          "& .MuiCardMedia-root": {
+            height: {
+              xs: "60%",
+              sm: 200
+            },
+            objectFit: "cover"
+          },
+          "& .MuiCardContent-root": {
+            height: {
+              xs: "40%",
+              sm: "auto"
+            },
+            padding: {
+              xs: 1,
+              sm: 2
+            },
+            "& .MuiTypography-root": {
+              fontSize: {
+                xs: "0.8rem",
+                sm: "1rem",
+                md: "1rem"
+              }
+            }
+          }
         }}
       >
         {!imageLoaded && (
