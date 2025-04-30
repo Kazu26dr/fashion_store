@@ -151,6 +151,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
             "&:last-child": {
               paddingBottom: 2,
             },
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: {
+              xs: '120px',
+              sm: '100px'
+            }
           }}
         >
           {!contentLoaded ? (
@@ -170,7 +177,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               />
             </Box>
           ) : (
-            <>
+            <Box sx={{ flex: 1 }}>
               <Typography
                 component="h3"
                 sx={{
@@ -192,17 +199,30 @@ const ProductCard = ({ product }: ProductCardProps) => {
               >
                 ￥{price}
               </Typography>
-            </>
+            </Box>
           )}
           {isOwner && contentLoaded && (
-            <IconButton
-              style={{ marginLeft: "auto", display: "flex" }}
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              onClick={handleClick}
-            >
-              <MoreVertIcon />
-            </IconButton>
+            <Box sx={{ 
+              position: 'absolute',
+              top: {
+                xs: 20,
+                sm: 45
+              },
+              right: 5
+            }}>
+              <IconButton
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  }
+                }}
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
+            </Box>
           )}
           <Menu
             id="simple-menu"
