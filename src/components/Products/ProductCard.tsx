@@ -210,18 +210,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
               },
               right: 5
             }}>
-              <IconButton
+            <IconButton
                 sx={{
                   '&:hover': {
                     backgroundColor: 'rgba(0, 0, 0, 0.04)',
                   }
                 }}
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-              >
-                <MoreVertIcon />
-              </IconButton>
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
             </Box>
           )}
           <Menu
